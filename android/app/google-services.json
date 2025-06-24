@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "79374173660",
+    "project_id": "rickandmark-e6e26",
+    "storage_bucket": "rickandmark-e6e26.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79374173660:android:0a4eca2f550a2883a5bb19",
+        "android_client_info": {
+          "package_name": "com.example.rick"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDc90fRiazLGANt17l3utN5qBI4_BUBWM8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
