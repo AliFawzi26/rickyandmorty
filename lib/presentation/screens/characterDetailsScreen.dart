@@ -1,15 +1,27 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rick/constants/my_colors.dart';
 import 'package:rick/data/models/characters.dart';
 import 'package:rick/constants/strings.dart';
+
 class CharacterDetailsScreen extends StatelessWidget {
   static const routeName = characterDetailsScreen;
   final Result character;
-  const CharacterDetailsScreen({
+  late final List<Widget> episodeWidgets;
+  CharacterDetailsScreen({
     Key? key,
     required this.character,
-  }) : super(key: key);
+  }) : super(key: key) {
+    // نحفظ الودجتات لمرة واحدة فقط لتحسين الأداء
+    episodeWidgets = character.episode.map((epUrl) {
+      final epNum = epUrl.split('/').last;
+      return Text(
+        '• Episode $epNum',
+        style: TextStyle(color: Mycolors.mywhite, fontSize: 16.sp),
+      );
+    }).toList();
+  }
 
   Widget buildSliverAppBar() {
     return SliverAppBar(
@@ -18,10 +30,9 @@ class CharacterDetailsScreen extends StatelessWidget {
       backgroundColor: Mycolors.mygrey,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(character.name, style: TextStyle(color: Mycolors.mywhite, fontSize: 18.sp),),
-        background: Hero(tag: character.id,
-          child: Image.network(character.image, fit: BoxFit.cover),
-        ),
-      ),);
+        background: Hero(tag: character.id, child: Image.network(character.image, fit: BoxFit.cover),),
+      ),
+    );
   }
   Widget buildInfoRow(String label, String value) {
     return Padding(
@@ -31,15 +42,15 @@ class CharacterDetailsScreen extends StatelessWidget {
           children: [
             TextSpan(
               text: '$label: ',
-              style: TextStyle(color: Mycolors.mywhite, fontWeight: FontWeight.bold, fontSize: 16.sp,),
+              style: TextStyle(color: Mycolors.mywhite, fontWeight: FontWeight.bold, fontSize: 16.sp),
             ),
             TextSpan(
               text: value,
               style: TextStyle(color: Mycolors.mywhite, fontSize: 16.sp),
             ),
-          ],
-        ),
-      ),);}
+          ],),),);
+  }
+
   Widget buildDivider(double endIndent) {
     return Divider(
       color: Mycolors.myyellow,
@@ -48,10 +59,12 @@ class CharacterDetailsScreen extends StatelessWidget {
       thickness: 2.h,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     final createdDate =
         "${character.created.day}/${character.created.month}/${character.created.year}";
+
     int? locationId;
     try {
       final parts = character.location.url.split('/');
@@ -59,6 +72,7 @@ class CharacterDetailsScreen extends StatelessWidget {
     } catch (_) {
       locationId = null;
     }
+
     return Scaffold(
       backgroundColor: Mycolors.mygrey,
       body: CustomScrollView(
@@ -69,11 +83,17 @@ class CharacterDetailsScreen extends StatelessWidget {
             sliver: SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  buildInfoRow('Status', character.status.name.toLowerCase().capitalize(),),
+                  buildInfoRow('Status',
+                    character.status.name.toLowerCase().capitalize(),
+                  ),
                   buildDivider(315),
-                  buildInfoRow('Species', character.species.name.toLowerCase().capitalize(),),
+                  buildInfoRow('Species',
+                    character.species.name.toLowerCase().capitalize(),
+                  ),
                   buildDivider(250),
-                  buildInfoRow('Gender', character.gender.name.toLowerCase().capitalize(),),
+                  buildInfoRow('Gender',
+                    character.gender.name.toLowerCase().capitalize(),
+                  ),
                   buildDivider(280),
                   if (character.type.isNotEmpty) ...[
                     buildInfoRow('Type', character.type),
@@ -97,15 +117,15 @@ class CharacterDetailsScreen extends StatelessWidget {
                             children: [
                               TextSpan(
                                 text: 'Location: ',
-                                style: TextStyle(color: Mycolors.mywhite, fontWeight: FontWeight.bold, fontSize: 16.sp,),
+                                style: TextStyle(color: Mycolors.mywhite, fontWeight: FontWeight.bold,
+                                    fontSize: 16.sp),
                               ),
                               TextSpan(
                                 text: character.location.name,
                                 style: TextStyle(color: Mycolors.myyellow, fontSize: 16.sp, decoration: TextDecoration.underline,),
                               ),
                             ],
-                          ),
-                        ),),)
+                          ),),),)
                   else
                     buildInfoRow('Location', character.location.name),
                   buildDivider(250),
@@ -118,23 +138,21 @@ class CharacterDetailsScreen extends StatelessWidget {
                     style: TextStyle(color: Mycolors.mywhite, fontWeight: FontWeight.bold, fontSize: 18.sp,),
                   ),
                   SizedBox(height: 8.h),
-                  ...character.episode.map((epUrl) {
-                    final epNum = epUrl.split('/').last;
-                    return Text(
-                      '• Episode $epNum',
-                      style: TextStyle(color: Mycolors.mywhite, fontSize: 16.sp),
-                    );
-                  }).toList(),
+                  ...episodeWidgets,
                   SizedBox(height: 24.h),
                 ],
-              ),),),
+              ),
+            ),
+          ),
         ],
-      ),);
-  }}
-
+      ),
+    );
+  }
+}
 extension StringExtension on String {
   String capitalize() {
     if (isEmpty) return this;
     return this[0].toUpperCase() + substring(1);
   }
 }
+
