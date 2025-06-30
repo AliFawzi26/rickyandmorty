@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rick/constants/my_colors.dart';
 import '../../constants/strings.dart';
-import '../../data/models/characters.dart'; // تأكد أنك تستورد الكلاس الصحيح
+import '../../data/models/characters.dart'; 
 
 class CharactersItems extends StatelessWidget {
   final Result characters;
@@ -13,8 +13,8 @@ class CharactersItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-      padding: EdgeInsets.all(4),
+      margin: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+      padding:const EdgeInsets.all(4),
       decoration: BoxDecoration(color: Mycolors.mywhite, borderRadius: BorderRadius.circular(8)),
       child:InkWell(
     onTap: ()=>Navigator.pushNamed(context,characterDetailsScreen,arguments:characters),
@@ -41,6 +41,6 @@ class CharactersItems extends StatelessWidget {
        ),
       ),
       ),
-    )  ); // يمكنك لاحقاً استبدالها بتصميمك الخاص
+    )  ); 
   }
 }
