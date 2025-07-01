@@ -1,3 +1,4 @@
+
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import '../../data/models/characters.dart';
 
 class CharactersItems extends StatelessWidget {
   final Result characters;
-
   const CharactersItems({Key? key, required this.characters}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -37,10 +37,10 @@ class CharactersItems extends StatelessWidget {
        overflow: TextOverflow.ellipsis,
          maxLines: 2,
          textAlign: TextAlign.center,
-
        ),
       ),
       ),
     )  ); 
   }
 }
+

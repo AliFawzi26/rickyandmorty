@@ -42,6 +42,7 @@ dependencies:
   firebase_auth:
   equatable: ^2.0.5
   flutter_screenutil:
+  cached_network_image:
 dev_dependencies:
   flutter_test:
     sdk: flutter

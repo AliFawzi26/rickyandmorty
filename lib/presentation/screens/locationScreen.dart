@@ -5,7 +5,6 @@ import 'package:rick/data/models/characters.dart';
 import 'package:rick/data/repository/characters_repository.dart';
 import 'package:rick/constants/my_colors.dart';
 import 'package:rick/constants/strings.dart';
-
 class LocationDetailsScreen extends StatelessWidget {
   static const routeName = locationDetailsScreen;
   final int locationId;
@@ -56,11 +55,7 @@ class LocationDetailsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(location.name,
-                      style: TextStyle(
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Mycolors.mywhite,
-                      )),
+                      style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold, color: Mycolors.mywhite,)),
                   SizedBox(height: 8.h),
                   Text("Type: ${location.type}",
                       style: TextStyle(fontSize: 18.sp, color: Mycolors.mywhite)),
@@ -73,11 +68,7 @@ class LocationDetailsScreen extends StatelessWidget {
                   SizedBox(height: 12.h),
                   Text(
                     "Number of residents: ${residentIds.length}",
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Mycolors.mywhite,
-                    ),
+                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Mycolors.mywhite,),
                   ),
                   SizedBox(height: 8.h),
                   ...residentIds.map((id) {
@@ -99,10 +90,7 @@ class LocationDetailsScreen extends StatelessWidget {
                     );
                   }).toList(),
                 ],
-              ),
-            );
-          }
-        },
+              ),);}},
       ),
     );
   }
