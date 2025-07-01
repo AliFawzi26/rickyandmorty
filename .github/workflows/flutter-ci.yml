@@ -1,0 +1,48 @@
+name: Flutter CI/CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. نقطة البداية: استنساخ الكود
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. إعداد Flutter
+      - name: Install Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.5.4'    # أو أي إصدار تريده
+
+      # 3. تنزيل الـ dependencies
+      - name: Flutter pub get
+        run: flutter pub get
+
+      # 4. تشغيل التحاليل الساكنة (analysis)
+      - name: Flutter analyze
+        run: flutter analyze
+
+      # 5. تشغيل الاختبارات
+      - name: Run tests
+        run: flutter test --coverage
+
+      # 6. بناء الـ APK (اختياري)
+      - name: Build APK
+        run: flutter build apk --release
+
+      # 7. حفظ ملفات الـ build كآرتيفاكت
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
